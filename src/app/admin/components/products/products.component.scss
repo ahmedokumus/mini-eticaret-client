@@ -1,0 +1,34 @@
+:host {
+  width: 100%;
+  display: block;
+  margin: 10px 10px 0px 10px;
+}
+
+.example-small-box,
+.example-large-box {
+  display: flex;
+  //align-items: center;
+  //justify-content: center;
+  margin: 15px 10px 15px 10px;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.example-small-box {
+  height: 500px;
+  width: 99%;
+}
+
+.example-large-box {
+  height: 500px;
+  width: 99%;
+}
+
+.app-list-width {
+  width: 100%;
+}
+
+.app-create-center {
+  position: relative;
+  margin: 0 auto auto auto;
+}

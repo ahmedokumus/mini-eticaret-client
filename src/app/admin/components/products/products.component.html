@@ -1,0 +1,12 @@
+<mat-tab-group dynamicHeight>
+    <mat-tab label="Ürün Ekleme">
+        <div class="example-small-box mat-elevation-z4">
+            <app-create (createdProduct)="createdProduct($event)" class="app-create-center"></app-create>
+        </div>
+    </mat-tab>
+    <mat-tab label="Ürün Listeleme">
+        <div class="example-large-box mat-elevation-z4">
+            <app-list class="app-list-width"></app-list>
+        </div>
+    </mat-tab>
+</mat-tab-group>
