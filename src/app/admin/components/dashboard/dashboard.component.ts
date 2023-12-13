@@ -15,14 +15,12 @@ import {
 export class DashboardComponent extends BaseComponent {
   constructor(private alertify: AlertifyService, spinner: NgxSpinnerService) {
     super(spinner);
-    this.showSpinner(SpinnerType.SquareJellyBox);
+    // this.showSpinner(SpinnerType.SquareJellyBox);
   }
 
   m() {
     this.alertify.message('Merhaba', {
-      messageType: MessageType.Error,
-      delay: 5,
-      position: Position.BottomCenter,
+      messageType: MessageType.Success,
     });
   }
 

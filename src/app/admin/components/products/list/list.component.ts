@@ -11,6 +11,8 @@ import {
 } from 'src/app/services/admin/alertify.service';
 import { ProductService } from 'src/app/services/admin/models/product.service';
 
+declare var $: any;
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -31,6 +33,8 @@ export class ListComponent extends BaseComponent implements OnInit {
     'price',
     'createdDate',
     'updatedDate',
+    'editButton',
+    'deleteButton',
   ];
 
   dataSource: any;
@@ -40,7 +44,7 @@ export class ListComponent extends BaseComponent implements OnInit {
   async getProducts() {
     this.showSpinner(SpinnerType.BallAtom);
     const allProducts: { totalCount: number; products: List_Product[] } =
-      await this.productService.read(
+      await this.productService.list(
         this.paginator ? this.paginator.pageIndex : 0,
         this.paginator ? this.paginator.pageSize : 5,
         () => this.hideSpinner(SpinnerType.BallAtom),

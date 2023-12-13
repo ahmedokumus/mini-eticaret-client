@@ -1,15 +1,15 @@
 <div class="example-form">
     <mat-form-field class="example-full-width">
         <mat-label>Ürün Adı</mat-label>
-        <input matInput placeholder="Örnek" #txtName>
+        <input matInput placeholder="Örnek" #txtName required>
     </mat-form-field>
     <mat-form-field class="example-full-width">
         <mat-label>Ürün Stok</mat-label>
-        <input type="number" matInput placeholder="0" value="" #txtStock>
+        <input type="number" matInput placeholder="0" value="" #txtStock required>
     </mat-form-field>
     <mat-form-field class="example-full-width">
         <mat-label>Ürün Fiyat</mat-label>
-        <input type="number" matInput placeholder="0" value="" #txtPrice>
+        <input type="number" matInput placeholder="0" value="" #txtPrice required>
     </mat-form-field>
     <div class="create-product-button">
         <button mat-raised-button color="primary" (click)="create(txtName, txtStock, txtPrice)">Ürün Ekle</button>

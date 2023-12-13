@@ -3,8 +3,8 @@ import { HttpClientService } from '../../common/http-client.service';
 import { Create_Product } from 'src/app/contracts/create_product';
 import { HttpErrorResponse } from '@angular/common/http';
 import { List_Product } from 'src/app/contracts/list_product';
-import { firstValueFrom } from 'rxjs';
-import { tick } from '@angular/core/testing';
+import { Observable, firstValueFrom } from 'rxjs';
+import { Delete_Product } from 'src/app/contracts/delete_product';
 
 @Injectable({
   providedIn: 'root',
@@ -43,49 +43,39 @@ export class ProductService {
   }
 
   async list(
-    successCallBack: () => void,
-    errorCallBack: (errorMessage: string) => void
-  ): Promise<{ products: List_Product[] }> {
-    const promiseData: Promise<{ products: List_Product[] }> = firstValueFrom(
-      this.httpClientService.get<{ products: List_Product[] }>({
-        controller: 'Product',
-      })
-    );
-
-    promiseData
-      .then((p) => successCallBack!())
-      .catch((errorResponse: HttpErrorResponse) =>
-        errorCallBack!(errorResponse.message)
-      );
-
-    return await promiseData;
-  }
-
-  async read(
     page: number = 0,
     size: number = 5,
     successCallBack?: () => void,
     errorCallback?: (errorMessage: string) => void
   ): Promise<{ totalCount: number; products: List_Product[] }> {
-    const promiseData: Promise<{
-      totalCount: number;
-      products: List_Product[];
-    }> = firstValueFrom(
-      this.httpClientService.get<{
-        totalCount: number;
-        products: List_Product[];
-      }>({
-        controller: 'Product',
-        queryString: `page=${page}&size=${size}`,
-      })
-    );
-
-    promiseData
-      .then((p) => successCallBack!())
-      .catch((errorResponse: HttpErrorResponse) =>
-        errorCallback!(errorResponse.message)
+    try {
+      const response = await firstValueFrom(
+        this.httpClientService.get<{
+          totalCount: number;
+          products: List_Product[];
+        }>({
+          controller: 'Product',
+          queryString: `page=${page}&size=${size}`,
+        })
       );
 
-    return await promiseData;
+      successCallBack?.(); // successCallBack varsa çağır
+
+      return response;
+    } catch (errorResponse: any) {
+      errorCallback?.(errorResponse.message); // errorCallback varsa çağır
+      throw errorResponse; // Hata tekrar fırlatılır
+    }
+  }
+
+  async delete(id: string) {
+    const deleteObservable: Observable<Delete_Product> =
+      this.httpClientService.delete<Delete_Product>(
+        {
+          controller: 'Product',
+        },
+        id
+      );
+    await firstValueFrom(deleteObservable);
   }
 }

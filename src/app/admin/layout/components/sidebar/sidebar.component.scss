@@ -1,0 +1,19 @@
+.titel-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 28px; /* İsteğe bağlı: Sayfanın yüksekliği kadar, sayfa boyunca ortalamak için */
+}
+
+.titel-p {
+  margin-top: 10px;
+  font-size: 1.4rem;
+  color: rgb(63, 81, 181);
+  font-family: "Arial", sans-serif; /* İsteğe bağlı: Yazı tipini ayarlayın */
+  font-weight: bold; /* İsteğe bağlı: Yazı kalınlığını ayarlayın */
+  text-shadow: 2px 2px 2px rgba(63, 81, 181, 0.6); /* İsteğe bağlı: Yazıya gölge ekleyin */
+}
+
+a:hover {
+  cursor: pointer;
+}

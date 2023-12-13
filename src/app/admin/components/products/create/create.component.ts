@@ -45,19 +45,22 @@ export class CreateComponent extends BaseComponent implements OnInit {
     create_product.stock = parseInt(stock.value);
     create_product.price = parseFloat(price.value);
 
-    if (!name.value) {
+    if (!name.value || name.value.length < 5) {
       this.hideSpinner(SpinnerType.SquareJellyBox);
-      this.alertify.message('Lütfen ürün adını giriniz!', {
-        dismissOthers: true,
-        messageType: MessageType.Error,
-        position: Position.TopRight,
-      });
+      this.alertify.message(
+        'Lütfen ürün adı en az 5 karakter olacak şekilde girin!',
+        {
+          dismissOthers: false,
+          messageType: MessageType.Error,
+          position: Position.TopRight,
+        }
+      );
       return;
     }
-    if (parseFloat(price.value) < 0) {
+    if (parseFloat(price.value) < 0 || price.value == '') {
       this.hideSpinner(SpinnerType.SquareJellyBox);
-      this.alertify.message('Ürün fiyatı 0 dan küçük olamaz!', {
-        dismissOthers: true,
+      this.alertify.message('Ürün fiyatı girilmemiş veya format hatası var', {
+        dismissOthers: false,
         messageType: MessageType.Error,
         position: Position.TopRight,
       });
@@ -68,11 +71,15 @@ export class CreateComponent extends BaseComponent implements OnInit {
       create_product,
       () => {
         this.hideSpinner(SpinnerType.SquareJellyBox);
-        this.alertify.message('Ürün Başarıyla Eklenmiştir.', {
-          dismissOthers: true,
-          messageType: MessageType.Success,
-          position: Position.TopRight,
-        });
+        this.alertify.message(
+          `${name.value} Adlı Ürün Başarıyla Eklenmiştir.`,
+          {
+            dismissOthers: false,
+            messageType: MessageType.Success,
+            position: Position.TopRight,
+            delay: 2,
+          }
+        );
         this.createdProduct.emit(create_product);
       },
       (errorMessage) => {
